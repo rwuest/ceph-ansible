@@ -75,6 +75,7 @@
     owner: "root"
     group: "root"
     mode: "0744"
+    setype: "bin_t"
 
 - name: generate systemd unit file
   become: true

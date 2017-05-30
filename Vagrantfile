@@ -83,6 +83,7 @@ ansible_provision = proc do |ansible|
       mgr_containerized_deployment: 'true',
       ceph_mon_docker_interface: ETH,
       ceph_mon_docker_subnet: "#{PUBLIC_SUBNET}.0/24",
+      monitor_address_block: "#{PUBLIC_SUBNET}.0/24",
       ceph_osd_docker_devices: settings['disks'],
       devices: settings['disks'],
       ceph_docker_on_openstack: BOX == 'openstack',
@@ -138,6 +139,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     lv.cpu_mode = 'host-passthrough'
   end
 
+  config.vm.synced_folder ".", "/vagrant", disabled: true
   # Faster bootup. Disables mounting the sync folder for libvirt and virtualbox
   if DISABLE_SYNCED_FOLDER
     config.vm.provider :virtualbox do |v,override|
